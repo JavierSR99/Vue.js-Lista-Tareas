@@ -1,0 +1,39 @@
+<template>
+  <div class="editar">
+    <h1>Editar</h1>
+    {{id}}
+    <hr />
+    <form @submit.prevent="editarTarea(tarea)" class="form-inline">
+      <div class="input-group mb-2 mr-sm-2">
+        <div class="input-group-prepend">
+          <div class="input-group-text">Edita la tarea</div>
+        </div>
+        <input class="form-control" type="text" v-model="tarea.nombre" />
+      </div>
+
+      <button type="submit" class="btn btn-primary">Editar</button>
+    </form>
+  </div>
+</template>
+
+<script>
+import { mapActions, mapState } from "vuex";
+
+export default {
+  name: "Editar",
+  data() {
+    return {
+      id: this.$route.params.id
+    };
+  },
+  methods: {
+    ...mapActions(["getTarea", "editarTarea"])
+  },
+  created() {
+    this.getTarea(this.id);
+  },
+  computed: {
+    ...mapState(["tarea"])
+  }
+};
+</script>
